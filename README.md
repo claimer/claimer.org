@@ -71,24 +71,24 @@ Claimer.org overview
 
 1. frontend app modules :
    
-    * claimants : Manage claimants
-    * damages : Damages registration
-    * default : Content pages and contact form
-    * mails : Mail group of users or managed claimants
-    * sfGuardAuth : extends sfGuardAuth with alternate login method
-    * users : Users administration
+  * claimants : Manage claimants
+  * damages : Damages registration
+  * default : Content pages and contact form
+  * mails : Mail group of users or managed claimants
+  * sfGuardAuth : extends sfGuardAuth with alternate login method
+  * users : Users administration
 
 2. plugins :
    
-    * [sfDoctrineGuardPlugin](http://www.symfony-project.org/plugins/sfDoctrineGuardPlugin) (v5.0.0) : Identity management
-    * [sfFormExtraPlugin](http://www.symfony-project.org/plugins/sfFormExtraPlugin) (v1.1.3) : Validators, widgets and forms
-    * [sfGenExtraPlugin](http://www.symfony-project.org/plugins/sfGenExtraPlugin) (v0.9.0) : Validators, widgets and forms
-    * [sfRatePlugin](http://www.symfony-project.org/plugins/sfRatePlugin) (v1.0.0) : Currency rates through Yahoo! finance
+  * [sfDoctrineGuardPlugin](http://www.symfony-project.org/plugins/sfDoctrineGuardPlugin) (v5.0.0) : Identity management
+  * [sfFormExtraPlugin](http://www.symfony-project.org/plugins/sfFormExtraPlugin) (v1.1.3) : Validators, widgets and forms
+  * [sfGenExtraPlugin](http://www.symfony-project.org/plugins/sfGenExtraPlugin) (v0.9.0) : Validators, widgets and forms
+  * [sfRatePlugin](http://www.symfony-project.org/plugins/sfRatePlugin) (v1.0.0) : Currency rates through Yahoo! finance
 
 3. libraries :
    
-    * [jQuery](http://www.jquery.com) (v1.10.1)
-    * [jqPlot](http://www.jqplot.com) (v1.0.8)
+  * [jQuery](http://www.jquery.com) (v1.10.1)
+  * [jqPlot](http://www.jqplot.com) (v1.0.8)
 
 ### Database
 
