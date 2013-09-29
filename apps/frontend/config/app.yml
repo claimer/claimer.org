@@ -1,0 +1,20 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/11-App
+
+# default values
+all:
+  sf_guard_plugin:
+    routes_register: false
+    signin_form: ClaimerFormSignin
+    success_signout_url: @homepage
+  recaptcha:
+    public_key: public key 
+    private_key: private key
+  claimer:
+    default_currency: EUR
+    pager_items: 100
+    start_date: 1970
+    files_damages_dir: <?php echo sfConfig::get('sf_data_dir') ?>/files/damages/
+    contact_recipients:
+      contact@localhost: Contact
+      example@localhost: Example

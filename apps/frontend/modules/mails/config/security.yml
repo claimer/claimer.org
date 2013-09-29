@@ -1,0 +1,17 @@
+list:
+  is_secure: true
+  credentials: list_mails
+edit:
+  is_secure: true
+  credentials: [[administer_any_user, administer_granted_user, administer_managed_user]]
+delete:
+  is_secure: true
+  credentials: [[administer_any_user, administer_granted_user, administer_managed_user]]
+mail_groups:
+  is_secure: true
+  credentials: [[administer_any_user, administer_granted_user]]
+mail_managed:
+  is_secure: true
+  credentials: [administer_managed_user, manage_claimants]
+default:
+  is_secure: true

@@ -1,0 +1,19 @@
+sfRate plugin
+==============
+
+This plugin will get to you the rates of the currency. This is a currency converter
+
+Documentation
+---------------------
+
+    $result = new sfRate(amount, currencyForm, currencyTo);
+    
+For US dollars to Euros
+
+    $result = new sfRate(1, 'USD', 'EUR');
+    
+Example
+---------------------
+
+In the package is an example of a currency converter.
+Just type http://localhost/sfrateplugin/ after enabled the module in settings.yml

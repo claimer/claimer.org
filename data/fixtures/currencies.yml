@@ -1,0 +1,19 @@
+ClaimerCurrency:
+  dollar:
+    code: USD
+    name: US Dollar
+  euro:
+    code: EUR
+    name: Euro
+  yuan:
+    code: CNY
+    name: Yuan
+  rupee:
+    code: INR
+    name: Rupee
+  yen:
+    code: JPY
+    name: Yen
+  rouble:
+    code: RUB
+    name: Rouble

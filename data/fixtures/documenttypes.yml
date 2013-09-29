@@ -1,0 +1,80 @@
+ClaimerDocumentType:
+  realestate_before:
+    DamageType: realestate
+    name: before
+  realestate_otherdocs:
+    DamageType: realestate
+    name: otherdocs
+  realestate_owner:
+    DamageType: realestate
+    name: owner
+  realestate_value:
+    DamageType: realestate
+    name: value
+  realestate_after:
+    DamageType: realestate
+    name: after
+  realestate_aboutdamage:
+    DamageType: realestate
+    name: aboutdamage
+  realestate_googleearth:
+    DamageType: realestate
+    name: googleearth
+  
+  movableobject_before:
+    DamageType: movableobject
+    name: before
+  movableobject_otherdocs:
+    DamageType: movableobject
+    name: otherdocs
+  movableobject_owner:
+    DamageType: movableobject
+    name: owner
+  movableobject_value:
+    DamageType: movableobject
+    name: value
+  movableobject_after:
+    DamageType: movableobject
+    name: after
+  movableobject_aboutdamage:
+    DamageType: movableobject
+    name: aboutdamage
+  
+  business_before:
+    DamageType: business
+    name: before
+  business_otherdocs:
+    DamageType: business
+    name: otherdocs
+  business_owner:
+    DamageType: business
+    name: owner
+  business_value:
+    DamageType: business
+    name: value
+  business_after:
+    DamageType: business
+    name: after
+  business_aboutdamage:
+    DamageType: business
+    name: aboutdamage
+  
+  person_before:
+    DamageType: person
+    name: before
+  person_otherdocs:
+    DamageType: person
+    name: otherdocs
+  person_owner:
+    DamageType: person
+    name: owner
+  person_value:
+    DamageType: person
+    name: value
+  person_after:
+    DamageType: person
+    name: after
+  
+  otherloss_before:
+    DamageType: otherloss
+    name: before

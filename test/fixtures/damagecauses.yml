@@ -1,0 +1,16 @@
+ClaimerCause:
+  storm:
+    type: storm
+    name: Storm
+  flood:
+    type: flood
+    name: Flood
+  fire:
+    type: fire
+    name: Fire
+  desertification:
+    type: desertification
+    name: Desertification
+  others:
+    type: other
+    name: Other

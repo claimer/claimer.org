@@ -1,0 +1,16 @@
+default:
+  http_metas:
+    content-type: text/html
+
+  metas:
+    title:        Claimer.org
+    description:  Claimer.org facilitates the registration of climate damages by independent registration centres worldwide.
+    keywords:     claimer, global warming, climate change, environment, damage claims, environmental damages, crisis, weather effects, registration, legal actions
+    robots:       index, follow
+
+  stylesheets:    [main.css]
+
+  javascripts:    [jquery-1.10.1.min.js]
+
+  has_layout:     true
+  layout:         layout

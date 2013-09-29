@@ -1,0 +1,12 @@
+# from https://github.com/github/gitignore/blob/master/Symfony.gitignore
+cache/*
+log/*
+web/uploads/*
+data/files/damages/*
+data/sql/*
+lib/filter/doctrine/base/Base*
+lib/filter/doctrine/*Plugin/base/Base*
+lib/form/doctrine/base/Base*
+lib/form/doctrine/*Plugin/base/Base*
+lib/model/doctrine/base/Base*
+lib/model/doctrine/*Plugin/base/Base*

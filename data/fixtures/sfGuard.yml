@@ -1,0 +1,111 @@
+sfGuardUser:
+  superadmin:
+    email_address:  superadmin@localhost
+    username:       superadmin
+    password:       superadmin
+    is_super_admin: false
+    Groups:         [super_administrators]
+  admin:
+    email_address:  admin@localhost
+    username:       admin
+    password:       admin
+    is_super_admin: false
+    Groups:         [administrators]
+  registrant:
+    email_address:  registrant@localhost
+    username:       registrant
+    password:       registrant
+    Groups:         [registrants]
+  claimant:
+    email_address:  claimant@localhost
+    username:       claimant
+    password:       claimant
+    Groups:         [claimants]
+
+sfGuardGroup:
+  super_administrators:
+    name:           super_administrators
+    description:    Super administrators group
+    Permissions:
+      - administer_any_user
+      - list_users
+      - list_damages
+      - filter_damages
+      - filter_damages_by_any
+      - list_mails
+  administrators:
+    name:           administrators
+    description:    Administrators group
+    Permissions:    
+      - administer_granted_user
+      - grant_registrants_user
+      - grant_claimants_user
+      - list_users
+      - list_damages
+      - filter_damages
+      - filter_damages_by_any
+      - list_mails
+  registrants:
+    name:           registrants
+    description:    Registrants group
+    Permissions:
+      - administer_managed_user
+      - manage_claimants
+      - create_damage
+      - list_damages
+      - filter_damages
+      - filter_damages_by_claimant
+      - list_mails
+  claimants:
+    name:           claimants
+    description:    Claimants group
+    Permissions:
+      - create_damage
+      - list_damages
+
+sfGuardPermission:
+  administer_any_user:
+    name:           administer_any_user
+    description:    Administer any user permission
+  administer_granted_user:
+    name:           administer_granted_user
+    description:    Administer granted user permission
+  administer_managed_user:
+    name:           administer_managed_user
+    description:    Administer managed user permission
+  grant_registrants_user:
+    name:           grant_registrants_user
+    description:    Grant registrants user permission
+  grant_claimants_user:
+    name:           grant_claimants_user
+    description:    Grant claimants user permission
+  manage_claimants:
+    name:           manage_claimants
+    description:    Manage claimants permission
+  edit_own_account:
+    name:           edit_own_account
+    description:    Edit own account permission
+  list_users:
+    name:           list_users
+    description:    List users permission
+  list_damages:
+    name:           list_damages
+    description:    List damages permission
+  filter_damages:
+    name:           filter_damages
+    description:    Filter damages permission
+  filter_damages_by_any:
+    name:           filter_damages_by_any
+    description:    Filter damages by any permission
+  filter_damages_by_manager:
+    name:           filter_damages_by_manager
+    description:    Filter damages by manager permission
+  filter_damages_by_claimant:
+    name:           filter_damages_by_claimant
+    description:    Filter damages by claimant permission
+  create_damage:
+    name:           create_damage
+    description:    Create damage permission
+  list_mails:
+    name:           list_mails
+    description:    List mails permission

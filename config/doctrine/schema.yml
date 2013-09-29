@@ -1,0 +1,301 @@
+# config/schema.yml
+options:
+  collate:  utf8_unicode_ci
+  charset:  utf8
+  type:     INNODB
+
+sfGuardUserProfile:
+  columns:
+    sf_guard_user_id:      { type: integer, unique: true, notnull: true }
+    email_alt:             { type: string(255) }
+    phone:                 { type: string(255) }
+    phone_alt:             { type: string(255) }
+    address_id:            { type: integer }
+    manager_id:            { type: integer }
+  relations:
+    User:                  { class: sfGuardUser, onDelete: CASCADE, local: sf_guard_user_id, foreign: id, type: one, foreignType: one, foreignAlias: Profile }
+    Manager:               { class: sfGuardUser, onDelete: SET NULL, local: manager_id, foreign: id, foreignType: many, foreignAlias: ManagedProfiles }
+    Address:               { class: ClaimerAddress, onDelete: RESTRICT, local: address_id, foreign: id, type: one, foreignType: one }
+
+ClaimerDamage:
+  actAs: { Timestampable: ~ }
+  columns:
+    validationcode:        { type: string(255), unique: true, notnull: true }
+    importance:            { type: integer, default: 0 }
+    type_id:               { type: integer, notnull: true }
+    cause_id:              { type: integer, notnull: true }
+    cause_other:           { type: string(255) }
+    description:           { type: string(4000) }
+    occurred_at:           { type: timestamp, notnull: true }
+    address_id:            { type: integer }
+    value_id:              { type: integer, notnull: true }
+    story:                 { type: string(10000) }
+    claimant_id:           { type: integer, notnull: true }
+    created_by:            { type: integer, notnull: true }
+    updated_by:            { type: integer, notnull: true }
+  relations:
+    Type:                  { class: ClaimerDamageType, onDelete: RESTRICT, local: type_id, foreign: id, foreignType: many, foreignAlias: Damages }
+    Cause:                 { class: ClaimerCause, onDelete: RESTRICT, local: cause_id, foreign: id, foreignType: many, foreignAlias: Damages }
+    Value:                 { class: ClaimerValue, onDelete: RESTRICT, local: value_id, foreign: id, foreignType: one, cascade: [delete] }
+    Where:                 { class: ClaimerAddress, onDelete: RESTRICT, local: address_id, foreign: id, foreignType: one, cascade: [delete] }
+    Claimant:              { class: sfGuardUser, onDelete: RESTRICT, local: claimant_id, foreign: id, foreignType: many, foreignAlias: Damages }
+    CreatedBy:             { class: sfGuardUser, onDelete: RESTRICT, local: created_by, foreign: id, foreignType: many, foreignAlias: Damages }
+    UpdatedBy:             { class: sfGuardUser, onDelete: RESTRICT, local: updated_by, foreign: id, foreignType: many, foreignAlias: Damages }
+  indexes:
+    importance:            { fields: importance }
+
+ClaimerDamageType:
+  columns:
+    type:                  { type: string(255), unique: true, notnull: true }
+    name:                  { type: string(255), notnull: true, notnull: true }
+    tbl_name:              { type: string(255), unique: true, notnull: true }
+    has_coowners:          { type: boolean, notnull: true, default: false }
+    has_documents:         { type: boolean, notnull: true, default: false }
+
+ClaimerRealestate:
+  columns:
+    damage_id:                        { type: integer, unique: true, notnull: true }
+    realestate_type_id:               { type: integer }
+    realestate_type_other:            { type: string(255) }
+    realestate_value_before_id:       { type: integer }
+    realestate_value_after_id:        { type: integer }
+  relations:
+    Damage:                           { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: one }
+    RealestateType:                   { class: ClaimerRealestateType, onDelete: RESTRICT, local: realestate_type_id, foreign: id, foreignType: many, foreignAlias: Realestates }
+    ValueBefore:                      { class: ClaimerValue, onDelete: RESTRICT, local: realestate_value_before_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueAfter:                       { class: ClaimerValue, onDelete: RESTRICT, local: realestate_value_after_id, foreign: id, foreignType: one, cascade: [delete] }
+
+ClaimerMovableobject:
+  columns:
+    damage_id:                           { type: integer, unique: true, notnull: true }
+    movableobject_kind:                  { type: string(255) }
+    movableobject_value_before_id:       { type: integer }
+    movableobject_value_after_id:        { type: integer }
+  relations:
+    Damage:                              { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: one }
+    ValueBefore:                         { class: ClaimerValue, onDelete: RESTRICT, local: movableobject_value_before_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueAfter:                          { class: ClaimerValue, onDelete: RESTRICT, local: movableobject_value_after_id, foreign: id, foreignType: one, cascade: [delete] }
+
+ClaimerBusiness:
+  columns:
+    damage_id:                           { type: integer, unique: true, notnull: true }
+    business_kind:                       { type: string(255) }
+    business_name:                       { type: string(255) }
+    business_value_before_turnover_id:   { type: integer }
+    business_value_before_profit_id:     { type: integer }
+    business_value_today_turnover_id:    { type: integer }
+    business_value_today_profit_id:      { type: integer }
+    business_value_before_id:            { type: integer }
+    business_value_after_id:             { type: integer }
+    business_value_total_id:             { type: integer }
+    business_address_now_id:             { type: integer }
+  relations:
+    Damage:                              { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: one }
+    ValueBT:                             { class: ClaimerValue, onDelete: RESTRICT, local: business_value_before_turnover_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueBP:                             { class: ClaimerValue, onDelete: RESTRICT, local: business_value_before_profit_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueTT:                             { class: ClaimerValue, onDelete: RESTRICT, local: business_value_today_turnover_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueTP:                             { class: ClaimerValue, onDelete: RESTRICT, local: business_value_today_profit_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueBefore:                         { class: ClaimerValue, onDelete: RESTRICT, local: business_value_before_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueAfter:                          { class: ClaimerValue, onDelete: RESTRICT, local: business_value_after_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueTotal:                          { class: ClaimerValue, onDelete: RESTRICT, local: business_value_total_id, foreign: id, foreignType: one, cascade: [delete] }
+    AddressNow:                          { class: ClaimerAddress, onDelete: RESTRICT, local: business_address_now_id, foreign: id, foreignType: one, cascade: [delete] }
+
+ClaimerPerson:
+  columns:
+    damage_id:                    { type: integer, unique: true, notnull: true }
+    person_name:                  { type: string(255) }
+    person_firstname:             { type: string(255) }
+    person_relationship_id:       { type: integer }
+    person_relationship_other:    { type: string(255) }
+    person_death_where:           { type: string(255) }
+    person_death_reason:          { type: string(255) }
+    person_value_med_id:          { type: integer }
+    person_value_funeral_id:      { type: integer }
+    person_value_care_id:         { type: integer }
+    person_value_work_id:         { type: integer }
+  relations:
+    Damage:                       { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: one }
+    PersonType:                   { class: ClaimerPersonType, onDelete: RESTRICT, local: person_relationship_id, foreign: id, foreignType: many, foreignAlias: Persons }
+    ValueMed:                     { class: ClaimerValue, onDelete: RESTRICT, local: person_value_med_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueFuneral:                 { class: ClaimerValue, onDelete: RESTRICT, local: person_value_funeral_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueCare:                    { class: ClaimerValue, onDelete: RESTRICT, local: person_value_care_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueWork:                    { class: ClaimerValue, onDelete: RESTRICT, local: person_value_work_id, foreign: id, foreignType: one, cascade: [delete] }
+
+ClaimerCattle:
+  columns:
+    damage_id:                    { type: integer, unique: true, notnull: true }
+    cattle_first_animal:          { type: string(255) }
+    cattle_first_eachyear:        { type: string(255) }
+    cattle_first_loses:           { type: integer, default: 0 }
+    cattle_first_value_id:        { type: integer }
+    cattle_second_animal:         { type: string(255) }
+    cattle_second_eachyear:       { type: string(255) }
+    cattle_second_loses:          { type: integer, default: 0 }
+    cattle_second_value_id:       { type: integer }
+    cattle_third_animal:          { type: string(255) }
+    cattle_third_eachyear:        { type: string(255) }
+    cattle_third_loses:           { type: integer, default: 0 }
+    cattle_third_value_id:        { type: integer }
+    cattle_fourth_animal:         { type: string(255) }
+    cattle_fourth_eachyear:       { type: string(255) }
+    cattle_fourth_loses:          { type: integer, default: 0 }
+    cattle_fourth_value_id:       { type: integer }
+    cattle_fifth_animal:          { type: string(255) }
+    cattle_fifth_eachyear:        { type: string(255) }
+    cattle_fifth_loses:           { type: integer, default: 0 }
+    cattle_fifth_value_id:        { type: integer }
+    cattle_ground_details:        { type: string(4000) }
+    cattle_living_today:          { type: string(4000) }
+  relations:
+    Damage:                       { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: one }
+    ValueFirst:                   { class: ClaimerValue, onDelete: RESTRICT, local: cattle_first_value_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueSecond:                  { class: ClaimerValue, onDelete: RESTRICT, local: cattle_second_value_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueThird:                   { class: ClaimerValue, onDelete: RESTRICT, local: cattle_third_value_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueFourth:                  { class: ClaimerValue, onDelete: RESTRICT, local: cattle_fourth_value_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueFifth:                   { class: ClaimerValue, onDelete: RESTRICT, local: cattle_fifth_value_id, foreign: id, foreignType: one, cascade: [delete] }
+
+ClaimerHarvest:
+  columns:
+    damage_id:                     { type: integer, unique: true, notnull: true }
+    harvest_crops:                 { type: string(255) }
+    harvest_feed_before:           { type: integer, default: 0 }
+    harvest_feed_after:            { type: integer, default: 0 }
+    harvest_value_before_id:       { type: integer }
+    harvest_value_after_id:        { type: integer }
+    harvest_permanent:             { type: string(4000) }
+    harvest_living_today:          { type: string(255) }
+    harvest_value_month_id:        { type: integer }
+    harvest_value_need_id:         { type: integer }
+  relations:
+    Damage:                        { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: one }
+    ValueBefore:                   { class: ClaimerValue, onDelete: RESTRICT, local: harvest_value_before_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueAfter:                    { class: ClaimerValue, onDelete: RESTRICT, local: harvest_value_after_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueMonth:                    { class: ClaimerValue, onDelete: RESTRICT, local: harvest_value_month_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValueNeed:                     { class: ClaimerValue, onDelete: RESTRICT, local: harvest_value_need_id, foreign: id, foreignType: one, cascade: [delete] }
+
+ClaimerOtherloss:
+  columns:
+    damage_id:                       { type: integer, unique: true, notnull: true }
+    otherloss_value_between_id:      { type: integer }
+    otherloss_value_peryear_id:      { type: integer }
+    otherloss_years_until:           { type: integer, default: 0 }
+  relations:
+    Damage:                          { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: one }
+    ValueBetween:                    { class: ClaimerValue, onDelete: RESTRICT, local: otherloss_value_between_id, foreign: id, foreignType: one, cascade: [delete] }
+    ValuePerYear:                    { class: ClaimerValue, onDelete: RESTRICT, local: otherloss_value_peryear_id, foreign: id, foreignType: one, cascade: [delete] }
+
+ClaimerCause:
+  actAs: { Timestampable: ~ }
+  columns:
+    type:                  { type: string(255), unique: true, notnull: true }
+    name:                  { type: string(255), unique: true, notnull: true }
+
+ClaimerCurrency:
+  actAs: { Timestampable: ~ }
+  columns:
+    code:                  { type: string(3), unique: true, notnull: true }
+    name:                  { type: string(100), notnull: true }
+  indexes:
+    code:                  { fields: code }
+
+ClaimerValue:
+  actAs: { Timestampable: ~ }
+  columns:
+    currency_id:           { type: integer }
+    value:                 { type: decimal(18), scale: 3 }
+  relations:
+    Currency:              { class: ClaimerCurrency, onDelete: RESTRICT, local: currency_id, foreign: id, type: one, foreignType: many, foreignAlias: Values }
+  indexes:
+    value:                 { fields: value }
+
+ClaimerRate:
+  actAs: { Timestampable: ~ }
+  columns:
+    currency_from_id:      { type: integer, notnull: true }
+    currency_to_id:        { type: integer, notnull: true }
+    rate:                  { type: decimal(18), scale: 3 }
+  relations:
+    CurrencyFrom:          { class: ClaimerCurrency, onDelete: CASCADE, local: currency_from_id, foreign: id, type: one, foreignType: many, foreignAlias: FromRates }
+    CurrencyTo:            { class: ClaimerCurrency, onDelete: CASCADE, local: currency_to_id, foreign: id, type: one, foreignType: many, foreignAlias: ToRates }
+  indexes:
+    rate:                  { fields: rate }
+
+ClaimerAddress:
+  actAs: { Timestampable: ~ }
+  columns:
+    street:                { type: string(255) }
+    number:                { type: string(25) }
+    postbox:               { type: string(25) }
+    city:                  { type: string(255) }
+    postcode:              { type: string(255) }
+    province:              { type: string(255) }
+    state:                 { type: string(255) }
+  indexes:
+    city:                  { fields: city }
+    postcode:              { fields: postcode }
+    state:                 { fields: state }
+
+ClaimerRealestateType:
+  actAs: { Timestampable: ~ }
+  columns:
+    type:                  { type: string(255), unique: true, notnull: true }
+    name:                  { type: string(255), unique: true, notnull: true }
+
+ClaimerPersonType:
+  actAs: { Timestampable: ~ }
+  columns:
+    type:                  { type: string(255), unique: true, notnull: true }
+    name:                  { type: string(255), unique: true, notnull: true }
+
+ClaimerCoowner:
+  actAs: 
+    Timestampable: ~
+  columns:
+    damage_id:             { type: integer, notnull: true }
+    percentage:            { type: float }
+    lastname:              { type: string(255) }
+    firstname:             { type: string(255) }
+    email:                 { type: string(255) }
+    email_alt:             { type: string(255) }
+    phone:                 { type: string(255) }
+    phone_alt:             { type: string(255) }
+    address_id:            { type: integer }
+    coownercode:           { type: integer, notnull: true }
+  relations:
+    Damage:                { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: many, foreignAlias: Coowners }
+    Address:               { class: ClaimerAddress, onDelete: RESTRICT, local: address_id, foreign: id, foreignType: one, cascade: [delete] }
+  indexes:
+    coownercode:           { fields: coownercode }
+
+ClaimerDocument:
+  actAs: 
+    Timestampable: ~
+  columns:
+    damage_id:             { type: integer, notnull: true }
+    type_id:               { type: integer, notnull: true }
+    filename:              { type: string(255), unique: true, notnull: true }
+    description:           { type: string(255) }
+  relations:
+    Damage:                { class: ClaimerDamage, onDelete: CASCADE, local: damage_id, foreign: id, foreignType: many, foreignAlias: Documents }
+    DocumentType:          { class: ClaimerDocumentType, onDelete: CASCADE, local: type_id, foreign: id, foreignType: many, foreignAlias: Documents }
+  indexes:
+    filename:              { fields: filename }
+
+ClaimerDocumentType:
+  columns:
+    damage_type_id:        { type: integer, notnull: true }
+    name:                  { type: string(255), notnull: true }
+  relations:
+    DamageType:            { class: ClaimerDamageType, onDelete: CASCADE, local: damage_type_id, foreign: id, foreignType: many, foreignAlias: DocumentsTypes }
+
+ClaimerMail:
+  actAs: { Timestampable: ~ }
+  columns:
+    subject:               { type: string(255), notnull: true }
+    message:               { type: string(10000), notnull: true }
+    recipients_label:      { type: string(255), notnull: true }
+    sender_id:             { type: integer, notnull: true }
+    manager_id:            { type: integer }
+  relations:
+    Sender:                { class: sfGuardUser, onDelete: CASCADE, local: sender_id, foreign: id, foreignType: many, foreignAlias: Mails }
+    Manager:               { class: sfGuardUser, onDelete: CASCADE, local: manager_id, foreign: id, foreignType: many, foreignAlias: Mails }

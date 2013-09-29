@@ -1,0 +1,43 @@
+ClaimerDamageType:
+  realestate:
+    type: realestate
+    name: Real Estate
+    tbl_name: ClaimerRealestate
+    has_coowners: true
+    has_documents: true
+  movableobject:
+    type: movableobject
+    name: Movable Object
+    tbl_name: ClaimerMovableobject
+    has_coowners: true
+    has_documents: true
+  business:
+    type: business
+    name: Business
+    tbl_name: ClaimerBusiness
+    has_coowners: true
+    has_documents: true
+  person:
+    type: person
+    name: Person
+    tbl_name: ClaimerPerson
+    has_coowners: false
+    has_documents: true
+  cattle:
+    type: cattle
+    name: Cattle
+    tbl_name: ClaimerCattle
+    has_coowners: false
+    has_documents: false
+  harvest:
+    type: harvest
+    name: Harvest
+    tbl_name: ClaimerHarvest
+    has_coowners: false
+    has_documents: false
+  otherloss:
+    type: otherloss
+    name: Other loss
+    tbl_name: ClaimerOtherloss
+    has_coowners: false
+    has_documents: true

@@ -1,0 +1,8 @@
+list:
+  is_secure: true
+  credentials: list_users
+newDamage:
+  is_secure: true
+  credentials: [[administer_any_user, administer_granted_user, administer_managed_user]]
+default:
+  is_secure: true

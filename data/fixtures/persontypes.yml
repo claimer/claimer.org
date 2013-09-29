@@ -1,0 +1,25 @@
+ClaimerPersonType:
+  mother:
+    type: mother
+    name: Mother
+  father:
+    type: fater
+    name: Father
+  child:
+    type: child
+    name: Child
+  husband:
+    type: husband
+    name: Husband
+  wife:
+    type: wife
+    name: Wife
+  grandfather:
+    type: grandfather
+    name: Grand-father
+  grandmother:
+    type: grandmother
+    name: Grand-mother
+  grandchild:
+    type: grandchild
+    name: Grand-child

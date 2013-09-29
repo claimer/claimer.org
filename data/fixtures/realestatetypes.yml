@@ -1,0 +1,25 @@
+ClaimerRealestateType:
+  appartment:
+    type: appartment
+    name: Appartment
+  houseone:
+    type: houseone
+    name: House for one family
+  houseseveral:
+    type: houseseveral
+    name: House for several families
+  commercial:
+    type: commercial
+    name: Commercial building
+  farmhouse:
+    type: farmhouse
+    name: Farmhouse with farm land
+  industrial:
+    type: industrial
+    name: Industrial building
+  farmland:
+    type: farmland
+    name: Farmland
+  other:
+    type: other
+    name: Other

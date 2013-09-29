@@ -1,0 +1,209 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/10-Routing
+
+# default rules
+homepage:
+  url:   /
+  param: { module: default, action: index }
+  
+whyregister:
+  url:   /whyregister
+  param: { module: default, action: whyregister }
+  
+howwill:
+  url:   /howwill
+  param: { module: default, action: howwill }
+  
+setupa:
+  url:   /setupa
+  param: { module: default, action: setupa }
+
+business:  
+  url:  /businessmodels
+  param: { module: default, action: business }
+
+mailing:
+  url:   /mailing
+  param: { module: default, action: mailing }
+  
+contact:
+  url:   /contact
+  param: { module: default, action: contact }
+  
+takeitover:
+  url:   /takeitover
+  param: { module: default, action: takeitover }
+  
+legalconditions:
+  url:   /legalconditions
+  param: { module: default, action: legalconditions }
+
+# sfGuardAuth
+sf_guard_signin:
+  url:   /login
+  param: { module: sfGuardAuth, action: signin }
+
+sf_guard_signout:
+  url:   /logout
+  param: { module: sfGuardAuth, action: signout }
+
+login_validationcode:
+  url:   /login/validationcode
+  param: { module: sfGuardAuth, action: validationCodeAuth }
+
+sf_guard_forgot_password:
+  url:   /forgot_password
+  param: { module: sfGuardForgotPassword, action: index }
+
+sf_guard_forgot_password_change:
+  url:   /forgot_password/:unique_key
+  class: sfDoctrineRoute
+  options: { model: sfGuardForgotPassword, type: object }
+  param: { module: sfGuardForgotPassword, action: change }
+  requirements:
+    sf_method: [get, post]
+
+# users
+users:
+  url: /users
+  param: { module: users, action: list}
+  requirements:
+    sf_method: [get]
+
+user_new:
+  url: /users/new
+  param: { module: users, action: new }
+  requirements:
+    sf_method: [get, post, put]
+
+user_view:
+  url: /user/:username
+  class: sfDoctrineRoute
+  options: { model: sfGuardUser, type: object }
+  param: { module: users, action: view }
+  requirements:
+    sf_method: [get]
+
+user_edit:
+  url: /user/:username/edit
+  class: sfDoctrineRoute
+  options: { model: sfGuardUser, type: object }
+  param: { module: users, action: edit }
+  requirements:
+    sf_method: [get, post, put]
+
+user_delete:
+  url: /user/:username/delete
+  class: sfDoctrineRoute
+  options: { model: sfGuardUser, type: object }
+  param: { module: users, action: delete }
+  requirements:
+    sf_method: [delete]
+
+user_damage_new:
+  url: /user/:username/damages/new
+  class: sfDoctrineRoute
+  options: { model: sfGuardUser, type: object }
+  param: { module: users, action: newDamage }
+  requirements:
+    sf_method: [get, post, put]
+
+# managed claimants 
+claimants:
+  url: /claimants
+  param: { module: claimants, action: list }
+  requirements:
+    sf_method: [get]
+
+claimant_new:
+  url: /claimants/new
+  param: { module: claimants, action: new }
+  requirements:
+    sf_method: [get, post, put]
+
+# damages
+damages:
+  url: /damages
+  param: { module: damages, action: list }
+  requirements:
+    sf_method: [get]
+
+damage_new:
+  url: /damages/new
+  param: { module: damages, action: registerOrNew }
+  requirements:
+    sf_method: [get, post, put]
+
+damage_view:
+  url: /damage/:validationcode
+  class: sfDoctrineRoute
+  options: { model: ClaimerDamage, type: object }
+  param: { module: damages, action: view }
+  requirements:
+    validationcode: "[a-zA-Z0-9\-]+"
+    sf_method: [get]
+
+damage_edit:
+  url: /damage/:validationcode/edit
+  class: sfDoctrineRoute
+  options: { model: ClaimerDamage, type: object }
+  param: { module: damages, action: edit }
+  requirements:
+    validationcode: "[a-zA-Z0-9\-]+"
+    sf_method: [get, post, put]
+
+damage_delete:
+  url: /damage/:validationcode/delete
+  class: sfDoctrineRoute
+  options: { model: ClaimerDamage, type: object }
+  param: { module: damages, action: delete }
+  requirements:
+    validationcode: "[a-zA-Z0-9\-]+"
+    sf_method: [delete]
+
+damage_document_view:
+  url: /damage/:validationcode/document/:md5_fname
+  class: sfDoctrineRoute
+  options: { model: ClaimerDocument, type: object, method: getDocumentForDamage }
+  param: { module: damages, action: documentView }
+  requirements:
+    validationcode: "[a-zA-Z0-9\-]+"
+    md5_fname: "[0-9a-f]+"
+    sf_method: [get]
+
+# mails
+mails:
+  url: /mails
+  param: { module: mails, action: list }
+  requirements:
+    sf_method: [get]
+
+mail_users:
+  url: /mails/users
+  param: { module: mails, action: mailUsers }
+  requirements:
+    sf_method: [get, post, put]
+
+mail_managed:
+  url: /mails/claimants
+  param: { module: mails, action: mailManaged }
+  requirements:
+    sf_method: [get, post, put]
+
+mail_view:
+  url: /mail/:id
+  class: sfDoctrineRoute
+  options: { model: ClaimerMail, type: object }
+  param: { module: mails, action: view }
+  requirements:
+    id: "[0-9]+"
+    sf_method: [get]
+
+mail_delete:
+  url: /mail/:id/delete
+  class: sfDoctrineRoute
+  options: { model: ClaimerMail, type: object }
+  param: { module: mails, action: delete }
+  requirements:
+    id: "[0-9]+"
+    sf_method: [delete]
