@@ -13,32 +13,8 @@ $t = new lime_test();
 Doctrine_Core::loadData(sfConfig::get('sf_test_dir').'/fixtures/sfGuard.yml');
 
 // users
-$superadmin = getUser('superadmin');
-$admin = getUser('admin');
 $registrant = getUser('registrant');
 $claimant = getUser('claimant');
-
-// test add groups to new user
-$t->comment('a new user can have groups :');
-
-$user = new sfGuardUser();
-$user->setUsername('test');
-
-$user->addGroupByName('claimants');
-$user->addGroupByName('claimants'); // accept duplicates
-try
-{
-  $user->addGroupByName('claimantstest');
-  $t->fail('group must exists');
-}
-catch(Exception $e)
-{
-  $t->pass('group must exists');
-}
-$t->ok($user->hasGroup('claimants'), 'user has group before save');
-$user->save();
-$t->ok($user->hasGroup('claimants'), 'user has group after save');
-$user->delete();
 
 // test manage user
 $t->comment('an user can manage another user :');
