@@ -26,42 +26,53 @@ But it's up to you to choose which webserver and database fit your needs.
 * MySQL 5
 
 * \>= PHP 5.2.4, check if your PHP configuration meets the Symfony requirements :
-  `$ wget http://sf-to.org/1.4/check.php`
-  `$ php check.php`
-  `remove the file afterwards`
+  ```
+  $ wget http://sf-to.org/1.4/check.php
+  $ php check.php
+  ```
+  `remove the check.php file afterwards`
 
 ### Claimer.org Setup
 
 1. Download from https://github.com/claimer/claimer.org/tarball/master
    or clone git repository
-   `$ git clone git://github.com/claimer/claimer.org.git`
+   ```
+   $ git clone git://github.com/claimer/claimer.org.git
+   ```
 
-2. Set up a new Apache virtual host
-   `as in [Symfony Jobeet Tutorial](http://symfony.com/legacy/doc/jobeet/1_4/en/01?orm=Doctrine#chapter_01_web_server_configuration_the_secure_way)`
+2. Set up a new Apache virtual host as in [Symfony Jobeet Tutorial](http://symfony.com/legacy/doc/jobeet/1_4/en/01?orm=Doctrine#chapter_01_web_server_configuration_the_secure_way)
 
 3. create a new MySQL user & database
-   `$ mysql -u root -p`
-   `mysql> CREATE DATABASE claimer;`
-   `mysql> CREATE USER 'claimer'@'localhost' IDENTIFIED BY 'PASSWORD';`
-   `mysql> GRANT ALL PRIVILEGES ON claimer.* TO 'claimer'@'localhost';`
-   `mysql> quit;`
+   ```
+   $ mysql -u root -p
+   mysql> CREATE DATABASE claimer;
+   mysql> CREATE USER 'claimer'@'localhost' IDENTIFIED BY 'PASSWORD';
+   mysql> GRANT ALL PRIVILEGES ON claimer.* TO 'claimer'@'localhost';
+   mysql> quit;
+   ```
 
-4. modify the following YAML file according to your newly configured database
+4. modify the following YAML file according to your newly configured database  
   `/config/databases.yml`
 
 5. build database from schema and load fixtures
-   `$ php symfony doctrine:build --all --and-load`
+   ```
+   $ php symfony doctrine:build --all --and-load
+   ```
 
 6. fix permissions
-   `$ php symfony project:permissions`
+   ```
+   $ php symfony project:permissions
+   ```
 
 7. clear cache
-   `$ php symfony cc`
+   ```
+   $ php symfony cc
+   ```
 
-8. restart Apache and Claimer.org should now be running on
+8. restart Apache and Claimer.org should now be running on  
    `http://localhost:8080`
 
-9. login as superadmin user
+9. login as superadmin user  
    `(login: superadmin, password: superadmin)`
 
 Claimer.org overview
@@ -92,10 +103,10 @@ Claimer.org overview
 
 ### Database
 
-The database schema is defined through an YAML file
+The database schema is defined through an YAML file  
 `/config/doctrine/schema.yml`
 
-Fixtures are loaded as initial data and can be customized
+Fixtures are loaded as initial data and can be customized  
 `/data/fixtures/*.yml`
 
 ### Users management and authentication
@@ -103,7 +114,7 @@ Fixtures are loaded as initial data and can be customized
 User management and access controls are handled through sfDoctrineGuardPlugin
 (Users<->Profiles, Groups, Permissions) and Symfony credential system.
 
-Fixtures include four default users in
+Fixtures include four default users in  
 `/data/fixtures/sfGuard.yml`
 
 ### Configuration
@@ -113,7 +124,7 @@ Fixtures include four default users in
 
 #### Symfony configuration
 
-The system configuration can be edited through an YAML file
+The system configuration can be edited through an YAML file  
 `/apps/frontend/config/settings.yml`
 
 * .settings :
@@ -122,12 +133,12 @@ The system configuration can be edited through an YAML file
 
 #### Frontend app configuration
 
-The frontend app configuration can be edited through an YAML file
+The frontend app configuration can be edited through an YAML file  
 `/apps/frontend/config/app.yml`
 
 * recaptcha: public and private key (used in contact form)
 * claimer:
-  * default_currency: default currency of damage values
+  * default_currency: default currency of damage values  
     `currencies: /data/fixtures/currencies.yml`
   * pager_items: number of items to show in list paginations
   * start_date: start date in dates form fields
