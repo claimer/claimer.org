@@ -1,6 +1,8 @@
 Claimer.org - Environmental Damage Claims Software
 ==================================================
 
+This software is a damage registration widget that can be added to a website to register climate change damage claims.
+
 Licence
 -------
 
